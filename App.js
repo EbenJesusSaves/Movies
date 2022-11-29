@@ -16,6 +16,8 @@ import {
 //this loads the lexend fonts
 const [LextedLoad] = useLexnd({
   Lexend_400Regular,
+  Lexend_500Medium,
+  Lexend_700Bold,
 });
 
 //this loads the alata fonts
