@@ -1,49 +1,74 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+// import "react-native-gesture-handler";
+
+// import { StatusBar } from "expo-status-bar";
+
+// import { StyleSheet, Text, View } from "react-native";
+
+// import { IndexNavigation } from "./src/navigations/IndexNavigation";
+// import { SafeAreaProvider } from "react-native-safe-area-context";
+// import { NavigationContainer } from "@react-navigation/native";
+
+// export default function App() {
+//this loads the lexend fonts
+
+//   return (
+//     <NavigationContainer>
+//       <SafeAreaProvider>
+//         <IndexNavigation />
+//         <StatusBar style="auto" />
+//       </SafeAreaProvider>
+//     </NavigationContainer>
+//   );
+// }
+import * as React from "react";
+import { View, Text } from "react-native";
+
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { IndexNavigation } from "./src/navigations/IndexNavigation";
+import { theme } from "./theme";
 
 import {
   useFonts as useLexnd,
   Lexend_400Regular,
-  Lexend_500Medium,
-  Lexend_700Bold,
 } from "@expo-google-fonts/lexend";
 
 import {
   useFonts as useAlata,
-  alata_400Regular,
+  Alata_400Regular,
 } from "@expo-google-fonts/alata";
+import styled, { ThemeProvider } from "styled-components/native";
 
-//this loads the lexend fonts
-const [LextedLoad] = useLexnd({
-  Lexend_400Regular,
-  Lexend_500Medium,
-  Lexend_700Bold,
-});
-
-//this loads the alata fonts
-
-const [AlataLoaded] = useAlata({
-  alata_400Regular,
-});
-
-//checks before loading the app
-if (!AlataLoaded || !LextedLoad) {
-  return null;
-}
-export default function App() {
+function HomeScreen() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+      <Text>Home Screen</Text>
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
+const Stack = createNativeStackNavigator();
+
+function App() {
+  const [LextedLoad] = useLexnd({
+    Lexend_400Regular,
+  });
+
+  //this loads the alata fonts
+
+  const [AlataLoaded] = useAlata({
+    Alata_400Regular,
+  });
+
+  // checks before loading the app
+  if (!AlataLoaded || !LextedLoad) {
+    return null;
+  }
+
+  return (
+    <ThemeProvider theme={theme}>
+      <IndexNavigation />
+    </ThemeProvider>
+  );
+}
+
+export default App;
