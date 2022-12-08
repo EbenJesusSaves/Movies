@@ -1,5 +1,6 @@
 export const colors = {
   brand: {
+    black: "black",
     primary: "#0e0f15",
     secondary: "0e0f15",
     muted: "#C6DAF7",
@@ -27,5 +28,6 @@ export const colors = {
     error: "#D0421B",
     success: "#dcb000",
     muted: "#323759",
+    white: "#dfe5f5",
   },
 };
