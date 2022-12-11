@@ -59,7 +59,7 @@ export const ScrollViewContainer = styled.ScrollView`
 `;
 
 export const ViewContainer = styled.View`
-  padding-top: ${isIOS ? 35 : 0};
+  padding-top: ${isIOS ? "35px" : 0};
   flex: 1;
   background-color: black;
 `;
@@ -80,7 +80,7 @@ export const TrendingComponent = ({ navigation }) => {
           returnMovies.map((data) => {
             return (
               <>
-                <Container>
+                <Container key={data.id}>
                   <TouchableOpacity
                     onPress={() =>
                       navigation.navigate("MoviesDetails", { id: data.id })
@@ -88,7 +88,7 @@ export const TrendingComponent = ({ navigation }) => {
                   >
                     <MoviesView>
                       <MovieCard elevation={5}>
-                        <FavouratesComponent />
+                        <FavouratesComponent movie={data} />
 
                         <MovieCardCover
                           source={{

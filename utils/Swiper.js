@@ -1,7 +1,9 @@
-import React, { Component } from "react";
+import React, { Component, useContext } from "react";
 import { View, Image, StatusBar, Dimensions, Text } from "react-native";
 import Swiper from "react-native-swiper";
-const { width, height } = Dimensions.get("window");
+import styled from "styled-components";
+import { MovieDbContext } from "../contexts/MovieDbContext";
+import { HeaderText } from "./BasicStyles";
 
 const styles = {
   wrapper: {
@@ -14,75 +16,90 @@ const styles = {
     backgroundColor: "transparent",
   },
   container: {
-    flex: 0.35,
+    flex: 200,
     justifyContent: "center",
     alignItems: "center",
   },
 
   image: {
     width: "85%",
-    height: "95%",
+    height: 200,
     color: "white",
     borderRadius: 15,
   },
 };
+
+const ComingText = styled.Text`
+  font-family: ${(p) => p.theme.fonts.body};
+  color: ${(p) => p.theme.colors.ui.secondary};
+  font-size: ${(p) => p.theme.fontSizes.body};
+  position: absolute;
+  bottom: 10px;
+  z-index: 2;
+  background-color: "rgba(0,0,2,.4)";
+`;
 export function Swipper() {
-  const swiperArray = [
-    "https://www.animatedtimes.com/wp-content/uploads/2022/05/ICE-AGE-7.jpg",
-    "https://i.ytimg.com/vi/Hv3obL9HqyY/maxresdefault.jpg",
-    "https://static1.srcdn.com/wordpress/wp-content/uploads/2021/11/diary-of-a-wimpy-kid-movies-ranked.jpg",
-    "https://www.themoviedb.org/t/p/w780/bF9k4L3E93fHESs55zcyvxG5qZH.jpg",
-    "https://www.cnet.com/a/img/resize/bc48bbd2f4dbb7f5799eb4bc28bdcf6f19f6f408/hub/2022/05/10/708507de-bb07-4c16-9a94-bbf206a59fd5/avatar.jpg?auto=webp&fit=crop&height=675&width=1200",
-  ];
+  const { dataReceived } = useContext(MovieDbContext);
 
   return (
-    <View style={styles.container}>
-      <StatusBar barStyle="light-content" />
+    dataReceived && (
+      <View style={styles.container}>
+        <StatusBar barStyle="light-content" />
 
-      <Swiper
-        style={styles.wrapper}
-        dot={
-          <View
-            style={{
-              backgroundColor: "rgba(255,255,255,.3)",
-              width: 6,
-              height: 6,
-              borderRadius: 4,
-              marginLeft: 4,
-              marginRight: 4,
-            }}
-          />
-        }
-        activeDot={
-          <View
-            style={{
-              backgroundColor: "#fff",
-              width: 6,
-              height: 6,
-              borderRadius: 7,
-              marginLeft: 7,
-              marginRight: 7,
-            }}
-          />
-        }
-        paginationStyle={{
-          bottom: 30,
-        }}
-        loop={true}
-        autoplay={true}
-      >
-        {swiperArray.map((item) => {
-          return (
+        <Swiper
+          style={styles.wrapper}
+          dot={
             <View
-              style={{ justifyContent: "center", alignItems: "center" }}
-              key={item}
-            >
-              <Image style={styles.image} source={{ uri: item }} />
-            </View>
-          );
-        })}
-      </Swiper>
-    </View>
+              style={{
+                backgroundColor: "rgba(255,255,255,.3)",
+                width: 0,
+                height: 0,
+                borderRadius: 4,
+                marginLeft: 4,
+                marginRight: 4,
+              }}
+            />
+          }
+          activeDot={
+            <View
+              style={{
+                backgroundColor: "#fff",
+                width: 0,
+                height: 0,
+                borderRadius: 7,
+                marginLeft: 7,
+                marginRight: 7,
+              }}
+            />
+          }
+          paginationStyle={{
+            bottom: 30,
+          }}
+          loop={true}
+          autoplay={true}
+        >
+          {dataReceived &&
+            dataReceived.map((movies) => {
+              return (
+                <View
+                  key={movies.id}
+                  style={{ justifyContent: "center", alignItems: "center" }}
+                >
+                  <ComingText>{movies.title}</ComingText>
+                  {
+                    <Image
+                      style={styles.image}
+                      source={{
+                        uri: `https://image.tmdb.org/t/p/w500/${movies.backdrop_path}`,
+                      }}
+                    />
+                  }
+                </View>
+              );
+            })}
+        </Swiper>
+      </View>
+    )
   );
 }
 

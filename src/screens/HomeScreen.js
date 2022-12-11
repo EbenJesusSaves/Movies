@@ -1,7 +1,13 @@
 import React from "react";
+import styled from "styled-components";
 import { SafeAreaView, Text, View } from "react-native";
-import { BackgroundColor, HeaderText } from "../../utils/BasicStyles";
-import { Swipper } from "../../utils/Swiper";
+import {
+  BackgroundColor,
+  HeaderText,
+  HeaderTextHot,
+} from "../../utils/BasicStyles";
+
+import { MoviesDetailsNav } from "../navigations/MoviesDetailsNav";
 
 export const HomeScreen = ({ movies = {} }) => {
   const {
@@ -11,12 +17,14 @@ export const HomeScreen = ({ movies = {} }) => {
     shortInfo = "Jesus Saves ",
   } = movies;
 
+  const Container = styled.View`
+    // flex: 0.4;
+    background-color: red;
+  `;
+
   return (
     <BackgroundColor>
-      <SafeAreaView style={{ flex: 1 }}>
-        <HeaderText>Trending Now</HeaderText>
-        <Swipper />
-      </SafeAreaView>
+      <MoviesDetailsNav />
     </BackgroundColor>
   );
 };
