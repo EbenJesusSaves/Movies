@@ -33,6 +33,14 @@ export const DescriptionText = styled.Text`
   margin-bottom: ${(p) => p.theme.space[3]};
 `;
 
+export const ErrorText = styled.Text`
+  font-family: ${(p) => p.theme.fonts.body};
+  color: ${(p) => p.theme.colors.text.error};
+  font-size: ${(p) => p.theme.fontSizes.caption};
+  padding-left: ${(p) => p.theme.space[4]};
+  margin-bottom: ${(p) => p.theme.space[3]};
+`;
+
 export const MovieCard = styled(Card)`
   margin: ${(p) => p.theme.space[0]};
 `;

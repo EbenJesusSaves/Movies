@@ -17,6 +17,7 @@ import {
 } from "@expo-google-fonts/alata";
 import styled, { ThemeProvider } from "styled-components/native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { FirebaseAuthProvider } from "./Firebase/context/FirebaseAuthProvider";
 
 function HomeScreen() {
   return (
@@ -45,9 +46,11 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <GestureHandlerRootView style={{ flex: 1 }}>
-        <IndexNavigation />
-      </GestureHandlerRootView>
+      <FirebaseAuthProvider>
+        <GestureHandlerRootView style={{ flex: 1 }}>
+          <IndexNavigation />
+        </GestureHandlerRootView>
+      </FirebaseAuthProvider>
     </ThemeProvider>
   );
 }

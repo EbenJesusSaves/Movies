@@ -1,80 +1,30 @@
 import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
 import React, { useContext, useRef, useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
 import { Button, TextInput } from "react-native-paper";
 import styled from "styled-components";
 import { FirebaseAuth } from "../../../Firebase/context/FirebaseAuthProvider";
-import { DescriptionText } from "../../../utils/BasicStyles";
-export const BottomSheetComponent = () => {
+import { DescriptionText, ErrorText } from "../../../utils/BasicStyles";
+
+export const BottomSheetComponent = (props) => {
   const sheetRef = useRef(null);
 
-  const snapPoints = ["60%", "80%"];
+  const snapPoints = ["80%", "90%"];
 
-  const [text, setText] = useState("");
-  const [tempEmail, setTempEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-
-  const AuthInput = styled(TextInput)``;
-  const AuthView = styled.View`
-    align-items: center;
-    padding: 20px;
-  `;
-
-  const { signUp } = useContext(FirebaseAuth);
+  const errorDisplay = () => {
+    setTimeout(() => <ErrorText>{error}</ErrorText>, 3000);
+  };
 
   return (
     <BottomSheet
       backgroundStyle={{ backgroundColor: "rgba(14, 15, 21,0.6)" }}
       ref={sheetRef}
       index={0}
-      snapPoints={snapPoints}
+      snapPoints={props.snapPoints}
       style={styles.container}
     >
       <BottomSheetScrollView contentContainerStyle={styles.contentContainer}>
-        <AuthView>
-          <View>
-            <TextInput
-              label="Email"
-              value={tempEmail}
-              style={{
-                width: 320,
-                marginBottom: 10,
-                backgroundColor: "#140f24",
-              }}
-              textContentType="email"
-              keyboardType="email-address"
-              onChangeText={(text) => setTempEmail(text)}
-            />
-            <TextInput
-              label="Password"
-              value={password}
-              style={{
-                width: 320,
-                marginBottom: 10,
-                backgroundColor: "#140f24",
-              }}
-              autoCapitalize="none"
-              textContentType="password"
-              onChangeText={(text) => setPassword(text)}
-            />
-            <TextInput
-              label="Password"
-              value={confirmPassword}
-              style={{
-                width: 320,
-                marginBottom: 10,
-                backgroundColor: "#140f24",
-              }}
-              autoCapitalize="none"
-              textContentType="password"
-              onChangeText={(text) => setConfirmPassword(text)}
-            />
-          </View>
-          <Button onPress={() => signUp(tempEmail, password, confirmPassword)}>
-            SignUp
-          </Button>
-        </AuthView>
+        {props.children}
       </BottomSheetScrollView>
     </BottomSheet>
   );

@@ -5,7 +5,7 @@ import {
   signOut,
 } from "firebase/auth";
 import React, { createContext, useState } from "react";
-import { Children } from "react/cjs/react.production.min";
+
 import { auth } from "../FirebaseConfig";
 
 export const FirebaseAuth = createContext();

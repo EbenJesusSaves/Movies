@@ -47,7 +47,6 @@ export const MoviesContextProvider = ({ children }) => {
     })();
   }, [api]);
 
-  console.log(returnSearchMovies);
   return (
     <MoviesContext.Provider
       value={{

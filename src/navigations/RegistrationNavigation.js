@@ -8,6 +8,8 @@ import {
 } from "@react-navigation/stack";
 import { Home } from "../home/Home";
 import { SignUpScreen } from "../Registration/screens/SignUpScreen";
+import { SignInScreen } from "../Registration/screens/SignInScreen";
+import { AccountScreen } from "../Registration/screens/AccountScreen";
 
 const Stack = createStackNavigator();
 const config = {
@@ -33,8 +35,9 @@ export const RegistrationNavigation = () => {
         },
       }}
     >
-      <Stack.Screen name="WelcomeScreen" component={Home} />
+      <Stack.Screen name="WelcomeScreen" component={AccountScreen} />
       <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
+      <Stack.Screen name="signInScreen" component={SignInScreen} />
     </Stack.Navigator>
   );
 };
